@@ -29,7 +29,7 @@
 
     <script type="text/javascript">
 
-        var circlesData = [],
+        var cd = [],
             num = 3,
             interval = 1000,
             t;
@@ -41,9 +41,9 @@
         var root = d3.select('#container').append('svg');
 
         function generateCircles(num) {
-            circlesData.length = 0;
+            cd.length = 0;
             for (var i = 0; i < num; i++) {
-                circlesData[i] = {
+                cd[i] = {
                     cx: xyScale(Math.random()),
                     cy: xyScale(Math.random()),
                     r: rScale(Math.random()),
@@ -116,11 +116,11 @@
         }
 
         function update(){
-            updateCircles(root, circlesData);
+            updateCircles(root, cd);
         };
 
         function pop(){
-            circlesData.pop();
+            cd.pop();
         }
 
         function run(){
