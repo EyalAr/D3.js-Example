@@ -123,11 +123,15 @@
             cd.pop();
         }
 
+        function step(){
+            num++;
+            go();   
+        }
+
         function run(){
             go();
             t = setInterval(function(){
-                num++;
-                go();
+                step();
             }, interval);
         }
 
