@@ -1,0 +1,141 @@
+<!doctype html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>D3 Example</title>
+    <meta name="viewport" content="width=device-width">
+
+    <style type="text/css">
+
+        body, html, .full, svg{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="container" class="full">
+    </div>
+
+    <script src="bower_components/d3/d3.js"></script>
+
+    <script type="text/javascript">
+
+        var circlesData = [],
+            num = 3,
+            interval = 1000,
+            t;
+
+        var xyScale = d3.scale.linear().domain([0, 1]).rangeRound([5, 95]),
+            rScale = d3.scale.linear().domain([0, 1]).rangeRound([30, 150]),
+            hueScale = d3.scale.linear().domain([0, 1]).rangeRound([0, 255]);
+
+        var root = d3.select('#container').append('svg');
+
+        function generateCircles(num) {
+            circlesData.length = 0;
+            for (var i = 0; i < num; i++) {
+                circlesData[i] = {
+                    cx: xyScale(Math.random()),
+                    cy: xyScale(Math.random()),
+                    r: rScale(Math.random()),
+                    hue: hueScale(Math.random()),
+                    id: i
+                };
+            }
+        }
+
+        function updateCircles(canvas, data) {
+
+            var circles = canvas
+                .selectAll('circle')
+                .data(data, function(d) {
+                    return d.id;
+                });
+
+            circles
+                .enter()
+                .append('circle')
+                .style('fill', function(d) {
+                    return d3.hsl(d.hue, 1, 0.5);
+                })
+                .style('fill-opacity', 0.75)
+                .style('stroke', function(d) {
+                    return d3.hsl(d.hue, 1, 0.4);
+                })
+                .style('stroke-width', '4px')
+                .attr('cx', function(d) {
+                    return d.cx + '%';
+                })
+                .attr('cy', function(d) {
+                    return d.cy + '%';
+                })
+                .attr('r', 0)
+                .transition()
+                .ease('quad')
+                .duration(200)
+                .attr('r', function(d) {
+                    return d.r + 'px';
+                });
+
+            circles
+                .transition()
+                .ease('quad')
+                .duration(200)
+                .attr('r', function(d) {
+                    return d.r + 'px';
+                })
+                .attr('cx', function(d) {
+                    return d.cx + '%';
+                })
+                .attr('cy', function(d) {
+                    return d.cy + '%';
+                });
+
+            circles
+                .exit()
+                .transition()
+                .ease('quad')
+                .duration(200)
+                .attr('r', 0)
+                .remove();
+
+        };
+
+        function go() {
+            generateCircles(num);
+            update();
+        }
+
+        function update(){
+            updateCircles(root, circlesData);
+        };
+
+        function pop(){
+            circlesData.pop();
+        }
+
+        function run(){
+            go();
+            t = setInterval(function(){
+                num++;
+                go();
+            }, interval);
+        }
+
+        function stop(){
+            clearTimeout(t);
+        }
+
+    </script>
+
+</body>
+</html>
