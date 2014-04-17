@@ -15,7 +15,7 @@ var data = [{
     c: 'blue'
 }];;
 
-var canvas = d3.select('#container');
+var canvas = d3.select('#canvas');
 
 function draw() {
 
