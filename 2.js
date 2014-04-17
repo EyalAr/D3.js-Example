@@ -45,4 +45,4 @@ function draw() {
 
 }
 
-$('#container').click(draw);
+$('#canvas').click(draw);
