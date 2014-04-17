@@ -17,23 +17,15 @@ var data = [{
 
 var canvas = d3.select('#canvas');
 
-function step() {
-    var circles = getSelection(data)
-        .call(create)
-        .call(update)
-        .call(remove);
-}
+function draw() {
 
-function getSelection(data) {
-    return canvas
+    var circles = canvas
         .selectAll('circle')
         .data(data);
-}
 
-function updateCircles(selection) {
-
-    return selection
-        .transition()
+    circles
+        .enter()
+        .append('circle')
         .attr('cx', function(d) {
             return d.x;
         })
@@ -43,24 +35,14 @@ function updateCircles(selection) {
         .attr('fill', function(d) {
             return d.c;
         })
+        .attr('r', 0)
+        .transition()
+        .ease('elastic')
+        .duration(750)
         .attr('r', function(d) {
             return d.r;
         });
 
 }
 
-function removeCircles(selection) {
-
-    return selection
-        .exit()
-        .remove();
-
-}
-
-function create(selection) {
-
-    return selection
-        .enter()
-        .append('circle');
-
-}
+$('#canvas').click(draw);
