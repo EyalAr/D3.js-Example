@@ -44,7 +44,7 @@ $("#canvas").click(function() {
     // add a new circle:
     data.push({
         x: '25%',
-        y: '50',
+        y: '50%',
         r: '5%',
         c: 'magenta'
     });
