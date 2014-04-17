@@ -17,23 +17,46 @@ var data = [{
 
 var canvas = d3.select('#canvas');
 
-function step() {
-    var circles = getSelection(data)
-        .call(create)
-        .call(update)
-        .call(remove);
-}
+var circles = canvas
+    .selectAll('circle')
+    .data(data);
 
-function getSelection(data) {
-    return canvas
+circles
+    .enter()
+    .append('circle')
+    .attr('cx', function(d) {
+        return d.x;
+    })
+    .attr('cy', function(d) {
+        return d.y;
+    })
+    .attr('fill', function(d) {
+        return d.c;
+    })
+    .attr('r', function(d) {
+        return d.r;
+    });
+
+$("#canvas").click(function() {
+    // change coordinates of the first circle:
+    data[0].x = '75%';
+
+    // add a new circle:
+    data.push({
+        x: '25%',
+        y: '50',
+        r: '5%',
+        c: 'magenta'
+    });
+
+    var circles = canvas
         .selectAll('circle')
         .data(data);
-}
 
-function updateCircles(selection) {
-
-    return selection
-        .transition()
+    circles
+        .enter()
+        .append('circle')
+        // set attributes as before...
         .attr('cx', function(d) {
             return d.x;
         })
@@ -47,20 +70,12 @@ function updateCircles(selection) {
             return d.r;
         });
 
-}
-
-function removeCircles(selection) {
-
-    return selection
-        .exit()
-        .remove();
-
-}
-
-function create(selection) {
-
-    return selection
-        .enter()
-        .append('circle');
-
-}
+    // update (x,y) coordinates:
+    circles
+        .attr('cx', function(d) {
+            return d.x;
+        })
+        .attr('cy', function(d) {
+            return d.y;
+        });
+});
