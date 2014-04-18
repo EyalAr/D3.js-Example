@@ -1,85 +1,89 @@
-(function() {
+var data = [{
+    x: '25%',
+    y: '25%',
+    r: '5%',
+    c: 'red'
+}, {
+    x: '50%',
+    y: '50%',
+    r: '5%',
+    c: 'green'
+}, {
+    x: '75%',
+    y: '75%',
+    r: '5%',
+    c: 'blue'
+}];;
 
-    var pi = Math.PI,
-        cos = Math.cos,
-        sin = Math.sin,
-        pr = 33, // path radius
-        pcx = 50, // path center x
-        pcy = 50, // path center y
-        fps = 24,
-        T = 1000 / fps,
-        nc = 50; // number of circles
+var canvas = d3.select('#canvas');
 
-    function toRad(deg) {
-        return (+deg) * pi / 180;
-    }
+var circles = canvas
+    .selectAll('circle')
+    .data(data);
 
-    function getX(a) {
-        return pcx + pr * cos(toRad(a));
-    }
+circles
+    .enter()
+    .append('circle')
+    .attr('cx', function(d) {
+        return d.x;
+    })
+    .attr('cy', function(d) {
+        return d.y;
+    })
+    .attr('fill', function(d) {
+        return d.c;
+    })
+    .attr('r', function(d) {
+        return d.r;
+    });
 
-    function getY(a) {
-        return pcy + pr * sin(toRad(a));
-    }
+$("#canvas").click(function() {
+    // change coordinates of the first circle:
+    data[0].x = '75%';
 
-    var data = [];
-    // generate circles:
-    for (var i = 0; i < nc; i++) {
-        data.push({
-            a: i * (360 / nc),
-            r: '5%',
-            c: d3.hsl(i * (360 / nc), 1, 0.5).toString()
-        });
-    }
+    // add a new circle:
+    data.push({
+        x: '25%',
+        y: '50%',
+        r: '5%',
+        c: 'magenta'
+    });
 
-    var canvas = d3.select('#canvas');
-
-    canvas
+    var circles = canvas
         .selectAll('circle')
-        .data(data)
-        .enter()
-        .append('circle')
+        .data(data);
+
+    // update (x,y) coordinates of existing elements:
+    circles
+        .transition()
         .attr('cx', function(d) {
-            return getX(d.a) + '%';
+            return d.x;
         })
         .attr('cy', function(d) {
-            return getY(d.a) + '%';
+            return d.y;
+        });
+
+    // create new elements:
+    circles
+        .enter()
+        .append('circle')
+        // set initial (pre-transition) attributes:
+        .attr('cx', function(d) {
+            return d.x;
         })
-        .attr('fill', function(d) {
+        .attr('cy', function(d) {
+            return d.y;
+        })
+        .attr('fill', function(d){
             return d.c;
         })
         .attr('r', 0)
+        // start transition:
         .transition()
-        .ease('elastic')
-        .duration(250)
+        // set final (post transition) attributes:
         .attr('r', function(d) {
             return d.r;
         });
 
-    function redraw() {
 
-        var circles = canvas
-            .selectAll('circle')
-            .data(data);
-
-        circles
-            .transition()
-            .ease('linear')
-            .duration(T)
-            .attr('cx', function(d) {
-                return getX(d.a) + '%';
-            })
-            .attr('cy', function(d) {
-                return getY(d.a) + '%';
-            });
-
-    }
-
-    setInterval(function() {
-        for (var i = 0; i < data.length; i++) {
-            data[i].a = ++data[i].a % 360;
-        }
-        redraw();
-    }, T);
-
-})();
+});
