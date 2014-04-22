@@ -3,19 +3,19 @@ var data = [{
     x: '25%',
     y: '25%',
     r: '5%',
-    c: 'orange'
+    c: 'red'
 }, {
     id: 'before2',
     x: '50%',
     y: '50%',
     r: '5%',
-    c: 'cyan'
+    c: 'green'
 }, {
     id: 'before3',
     x: '75%',
     y: '75%',
     r: '5%',
-    c: 'magenta'
+    c: 'blue'
 }];
 
 var canvas = d3.select('#canvas');
@@ -50,19 +50,19 @@ $("#canvas").click(function() {
         x: '33%',
         y: '33%',
         r: '5%',
-        c: 'red'
+        c: 'orange'
     }, {
         id: 'after2',
         x: '66%',
         y: '66%',
         r: '5%',
-        c: 'green'
+        c: 'cyan'
     }, {
         id: 'after3',
         x: '25%',
         y: '25%',
         r: '5%',
-        c: 'blue'
+        c: 'magenta'
     }];
 
     var circles = canvas
