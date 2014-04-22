@@ -44,17 +44,17 @@ $("#canvas").click(function() {
         x: '33%',
         y: '33%',
         r: '5%',
-        c: 'red'
+        c: 'orange'
     }, {
         x: '66%',
         y: '66%',
         r: '5%',
-        c: 'green'
+        c: 'cyan'
     }, {
         x: '25%',
         y: '25%',
         r: '5%',
-        c: 'blue'
+        c: 'magenta'
     }];
 
     var circles = canvas

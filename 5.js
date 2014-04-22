@@ -3,19 +3,19 @@ var data = [{
     x: '25%',
     y: '25%',
     r: '5%',
-    c: 'red'
+    c: 'orange'
 }, {
     id: 'before2',
     x: '50%',
     y: '50%',
     r: '5%',
-    c: 'green'
+    c: 'cyan'
 }, {
     id: 'before3',
     x: '75%',
     y: '75%',
     r: '5%',
-    c: 'blue'
+    c: 'magenta'
 }];
 
 var canvas = d3.select('#canvas');
