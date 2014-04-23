@@ -6,6 +6,6 @@ body, html, .full, svg{
     overflow: hidden;
 }
 
-#clickable{
+.clickable{
     cursor: pointer;
 }

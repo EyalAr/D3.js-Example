@@ -22,10 +22,10 @@
             parts = params.split('!'),
             clickable = +parts[1],
             script = parts[0] + ".js";
-            if (clickable) $('#canvas').addClass('clickable');
+            if (clickable) $('body').addClass('clickable');
             $('<script>').appendTo('body').load(script);
         })();
     </script>
-    
+
 </body>
 </html>
