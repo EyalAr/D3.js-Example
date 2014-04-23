@@ -10,7 +10,6 @@
 <body>
 
     <div class="full">
-        <div id="click-me"><img src="click.png"/></div>
         <svg id="canvas"></svg>
     </div>
 
@@ -18,13 +17,15 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
 
     <script type="text/javascript">
-        var params = location.search.slice(1),
+        (function(){
+            var params = location.search.slice(1),
             parts = params.split('!'),
-            show = +parts[1],
+            clickable = +parts[1],
             script = parts[0] + ".js";
-        if (show) $('#click-me').show();
-        $('<script>').appendTo('body').load(script);
+            if (clickable) $('#canvas').addClass('clickable');
+            $('<script>').appendTo('body').load(script);
+        })();
     </script>
-
+    
 </body>
 </html>
