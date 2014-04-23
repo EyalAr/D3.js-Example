@@ -27,7 +27,7 @@
     for (var i = 0; i < nc; i++) {
         data.push({
             a: i * (360 / nc),
-            r: '5%',
+            r: '2%',
             c: d3.hsl(i * (360 / nc), 1, 0.5).toString()
         });
     }
